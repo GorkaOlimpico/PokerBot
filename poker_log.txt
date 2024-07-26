@@ -1,0 +1,172 @@
+Poker Hand Log
+========================================
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['6 of Clubs', 'A of Diamonds'].
+Bot 1 bets 77.
+Bot 2 received ['Q of Clubs', 'K of Spades'].
+Bot 2 bets 63.
+Bot 3 received ['A of Clubs', '8 of Spades'].
+Bot 3 bets 57.
+Bot 4 received ['4 of Clubs', '5 of Hearts'].
+Bot 4 bets 47.
+Bot 5 received ['8 of Clubs', 'J of Clubs'].
+Bot 5 bets 8.
+Bot 6 received ['J of Spades', '4 of Hearts'].
+Bot 6 bets 35.
+Board cards: ['Q of Spades', 'A of Hearts', 'Q of Hearts', '7 of Hearts', '3 of Diamonds']
+The winner is Bot 2.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['A of Hearts', 'A of Diamonds'].
+Bot 1 bets 93.
+Bot 2 received ['10 of Hearts', '8 of Hearts'].
+Bot 2 bets 11.
+Bot 3 received ['K of Hearts', '5 of Diamonds'].
+Bot 3 bets 13.
+Bot 4 received ['10 of Diamonds', 'Q of Clubs'].
+Bot 4 bets 39.
+Bot 5 received ['2 of Diamonds', '3 of Spades'].
+Bot 5 bets 68.
+Bot 6 received ['8 of Diamonds', 'J of Spades'].
+Bot 6 bets 93.
+Board cards: ['3 of Hearts', 'J of Hearts', '4 of Spades', '7 of Clubs', '9 of Clubs']
+The winner is Bot 4.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['9 of Hearts', '9 of Spades'].
+Bot 1 bets 11.
+Bot 2 received ['4 of Hearts', 'J of Clubs'].
+Bot 2 bets 45.
+Bot 3 received ['4 of Spades', 'Q of Clubs'].
+Bot 3 bets 9.
+Bot 4 received ['5 of Clubs', '10 of Clubs'].
+Bot 4 bets 98.
+Bot 5 received ['A of Clubs', '3 of Diamonds'].
+Bot 5 bets 25.
+Bot 6 received ['3 of Hearts', 'A of Diamonds'].
+Bot 6 bets 98.
+Board cards: ['K of Spades', '4 of Diamonds', '2 of Clubs', '3 of Spades', '7 of Hearts']
+The winner is Bot 5.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['A of Diamonds', '7 of Hearts'].
+Bot 1 bets 1.
+Bot 2 received ['J of Hearts', '8 of Spades'].
+Bot 2 bets 94.
+Bot 3 received ['Q of Hearts', '8 of Hearts'].
+Bot 3 bets 42.
+Bot 4 received ['K of Diamonds', '3 of Hearts'].
+Bot 4 bets 23.
+Bot 5 received ['A of Clubs', '10 of Clubs'].
+Bot 5 bets 62.
+Bot 6 received ['5 of Diamonds', '10 of Hearts'].
+Bot 6 bets 70.
+Board cards: ['4 of Diamonds', 'A of Spades', '4 of Spades', '2 of Spades', 'J of Diamonds']
+The winner is Bot 6.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['2 of Clubs', 'J of Hearts'].
+Bot 1 bets 48.
+Bot 2 received ['4 of Clubs', 'K of Diamonds'].
+Bot 2 bets 47.
+Bot 3 received ['6 of Diamonds', '6 of Spades'].
+Bot 3 bets 71.
+Bot 4 received ['8 of Hearts', '10 of Diamonds'].
+Bot 4 bets 27.
+Bot 5 received ['7 of Clubs', '5 of Clubs'].
+Bot 5 bets 67.
+Bot 6 received ['J of Spades', 'Q of Spades'].
+Bot 6 bets 85.
+Board cards: ['2 of Hearts', '4 of Diamonds', '10 of Hearts', '6 of Hearts', 'Q of Clubs']
+The winner is Bot 4.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['8 of Diamonds', '3 of Hearts'].
+Bot 1 bets 99.
+Bot 2 received ['8 of Hearts', 'J of Spades'].
+Bot 2 bets 13.
+Bot 3 received ['K of Hearts', '10 of Hearts'].
+Bot 3 bets 35.
+Bot 4 received ['9 of Clubs', 'J of Hearts'].
+Bot 4 bets 59.
+Bot 5 received ['K of Spades', '10 of Diamonds'].
+Bot 5 bets 89.
+Bot 6 received ['8 of Spades', '4 of Clubs'].
+Bot 6 bets 65.
+Board cards: ['3 of Diamonds', 'Q of Hearts', '6 of Diamonds', 'Q of Diamonds', '5 of Spades']
+The winner is Bot 4.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['5 of Spades', '9 of Clubs'].
+Bot 1 bets 94.
+Bot 2 received ['5 of Diamonds', 'K of Spades'].
+Bot 2 bets 81.
+Bot 3 received ['A of Hearts', '4 of Diamonds'].
+Bot 3 bets 36.
+Bot 4 received ['4 of Spades', '8 of Spades'].
+Bot 4 bets 22.
+Bot 5 received ['A of Diamonds', '10 of Hearts'].
+Bot 5 bets 84.
+Bot 6 received ['2 of Spades', '9 of Diamonds'].
+Bot 6 bets 42.
+Board cards: ['10 of Diamonds', 'K of Clubs', '2 of Hearts', '6 of Hearts', 'Q of Hearts']
+The winner is Bot 1.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['8 of Spades', '3 of Diamonds'].
+Bot 1 bets 45.
+Bot 2 received ['6 of Hearts', '5 of Spades'].
+Bot 2 bets 91.
+Bot 3 received ['J of Spades', 'K of Spades'].
+Bot 3 bets 52.
+Bot 4 received ['9 of Hearts', '3 of Spades'].
+Bot 4 bets 27.
+Bot 5 received ['J of Clubs', '2 of Diamonds'].
+Bot 5 bets 97.
+Bot 6 received ['3 of Clubs', '6 of Diamonds'].
+Bot 6 bets 79.
+Board cards: ['8 of Hearts', '2 of Spades', 'A of Spades', '10 of Diamonds', '10 of Hearts']
+The winner is Bot 5.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['5 of Diamonds', '3 of Diamonds'].
+Bot 1 bets 43.
+Bot 2 received ['9 of Hearts', '10 of Diamonds'].
+Bot 2 bets 89.
+Bot 3 received ['8 of Diamonds', '9 of Diamonds'].
+Bot 3 bets 58.
+Bot 4 received ['6 of Clubs', '7 of Clubs'].
+Bot 4 bets 80.
+Bot 5 received ['5 of Clubs', '8 of Spades'].
+Bot 5 bets 76.
+Bot 6 received ['K of Diamonds', '2 of Clubs'].
+Bot 6 bets 96.
+Board cards: ['K of Hearts', '8 of Hearts', '5 of Spades', '4 of Clubs', '6 of Hearts']
+The winner is Bot 3.
+----------------------------------------
+Shuffling the deck.
+Dealing cards.
+Bot 1 received ['7 of Hearts', '4 of Clubs'].
+Bot 1 bets 70.
+Bot 2 received ['J of Spades', '2 of Diamonds'].
+Bot 2 bets 54.
+Bot 3 received ['2 of Clubs', 'Q of Hearts'].
+Bot 3 bets 25.
+Bot 4 received ['10 of Clubs', 'A of Spades'].
+Bot 4 bets 94.
+Bot 5 received ['10 of Hearts', 'A of Clubs'].
+Bot 5 bets 17.
+Bot 6 received ['8 of Diamonds', '5 of Spades'].
+Bot 6 bets 18.
+Board cards: ['7 of Spades', '5 of Clubs', '6 of Clubs', '4 of Hearts', 'Q of Diamonds']
+The winner is Bot 1.
+----------------------------------------
