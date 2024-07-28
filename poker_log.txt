@@ -1,12 +1,2 @@
 Poker Hand Log
 ========================================
-Dealing cards.
-Bot1 received ['4 of Spades', '3 of Spades'].
-Bot2 received ['Q of Diamonds', 'Q of Hearts'].
-Bot3 received ['8 of Diamonds', '8 of Spades'].
-Bot4 received ['4 of Hearts', '6 of Hearts'].
-Bot5 received ['10 of Hearts', '3 of Clubs'].
-Bot6 received ['9 of Spades', '5 of Spades'].
-Board cards: ['K of Diamonds', 'J of Clubs', '7 of Diamonds', '2 of Spades', '3 of Diamonds']
-The winner is Bot6.
-----------------------------------------
