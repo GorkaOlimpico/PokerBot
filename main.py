@@ -4,11 +4,11 @@ import random
 from enum import Enum
 
 # Define the cards
-suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
-ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+suits = ['h', 'd', 'c', 's']
+ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
 
 # Create a deck
-deck = [f'{rank} of {suit}' for suit in suits for rank in ranks]
+deck = [f'{rank}{suit}' for suit in suits for rank in ranks]
 
 def shuffle_deck(deck):
     random.shuffle(deck)
@@ -74,7 +74,7 @@ class PokerStreet(Enum):
 def calculate_actions(max_bet, bot):
     actions = []
     if bot.stack > 0:
-        if max_bet == 0:
+        if max_bet == 0 or max_bet == bot.bet:
             actions = ['check', 'bet']
             if bot.stack < max_bet:
                 actions.pop()
@@ -147,12 +147,15 @@ def play_hand(bots, deck, log):
         bot.position = positions[bot.seat]
         if bot.position == 4:
             bot.bet = 1
+            bot.stack -= 1
         if bot.position == 5:
             bot.bet = 0.5
+            bot.stack -= 0.5
 
-        print(f"Position of {bot.name} in seat {bot.seat}: " + position_in_table(bot.position))
+        print(f"{bot.name} in " + position_in_table(bot.position)+ ": " + str(bot.hand[0]) +" "+ str(bot.hand[1]))
 
-    
+    print("----------")
+
     street = 0
     max_bet = 1
     players_in_hand = 6
@@ -177,7 +180,7 @@ def play_hand(bots, deck, log):
         posible_actions = calculate_actions(max_bet, bots[action_seat])
 
         # Choose random action
-        if posible_actions ==  []:
+        if posible_actions == []:
             print("Problema")
 
         if len(posible_actions) > 1:
@@ -187,30 +190,37 @@ def play_hand(bots, deck, log):
 
         if posible_actions[random_index] == 'bet':
             # Select bet amount with our stack
-            if max_bet+1 == bots[action_seat].stack:
+            if max_bet >= bots[action_seat].stack:
                 bet_amount = bots[action_seat].stack
                 players_allin += 1
-                print(f"{bots[action_seat].name} " + position_in_table(bot.position) + "Allin")
+                print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " bet Allin")
             else:
-                bet_amount = random.randint(max_bet + 1, bots[action_seat].stack)
+                bet_amount = round(random.uniform(max_bet + 1, bots[action_seat].stack), 1)
+                max_bet = bots[action_seat].bet + bet_amount
 
-            bots[action_seat].bet = bet_amount
-            max_bet = bet_amount
-            bots[action_seat].stack = bots[action_seat].stack - bet_amount
+            bots[action_seat].bet += bet_amount
+            bots[action_seat].stack = round(bots[action_seat].stack - bet_amount, 1)
             players_to_talk = players_in_hand - 1
-            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " bet:" + str(bet_amount))
+            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " bet:" + str(bet_amount) + " | " + str(bots[action_seat].stack))
 
             
         elif posible_actions[random_index] == 'call':
-            if max_bet > bots[action_seat].stack:
+            if max_bet > bots[action_seat].stack: # If call is Allin 
                 bots[action_seat].bet = bots[action_seat].stack
                 bots[action_seat].stack = 0
                 players_allin += 1
+                print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " call Allin")
             else:
+                if bots[action_seat].bet == 0:
+                    call_amount = max_bet
+                else:
+                    call_amount = max_bet - bots[action_seat].bet
+                
+                bots[action_seat].stack = round(bots[action_seat].stack - call_amount, 1)
                 bots[action_seat].bet = max_bet
-                bots[action_seat].stack = bots[action_seat].stack - max_bet
+
             players_to_talk -= 1
-            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " call:" + str(max_bet))
+            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " call:" + str(call_amount) + " | " + str(bots[action_seat].stack))
         
         elif posible_actions[random_index] == 'fold':
             bots[action_seat].hand = []
@@ -221,7 +231,7 @@ def play_hand(bots, deck, log):
             
         elif posible_actions[random_index] == 'check':
             players_to_talk -= 1
-            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " check")
+            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " check" + " | " + str(bots[action_seat].stack))
 
 
         last_action_position = bots[action_seat].position
@@ -246,6 +256,9 @@ def play_hand(bots, deck, log):
 
             else:
                 showdown = True
+        
+        if players_allin >= players_in_hand - 1:
+            print("Hand All-in")
 
     print("Hand finished")
 
@@ -263,7 +276,7 @@ def play_hand(bots, deck, log):
 
 def main(num_hands, file_name):
     bots = [Bot(f'Bot {i}') for i in range(1, 7)]
-    deck = [f'{rank} of {suit}' for suit in suits for rank in ranks]
+    deck = [f'{rank}{suit}' for suit in suits for rank in ranks]
 
     i = 0
     for bot in bots:
