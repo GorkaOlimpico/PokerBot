@@ -1,2 +1,11 @@
 Poker Hand Log
 ========================================
+Dealing cards.
+Bot0 received ['Qd', '4h'].
+Bot1 received ['9h', '2h'].
+Bot2 received ['9c', '9d'].
+Bot3 received ['6d', 'Jc'].
+Bot4 received ['4c', '8s'].
+Bot5 received ['7s', '5h'].
+Board cards: ['Js', 'Ts', '3c']
+----------------------------------------

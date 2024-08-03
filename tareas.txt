@@ -1,0 +1,2 @@
+- Hacer sistema de allins por separado
+- Hacer sistema de actualización de stacks

@@ -80,7 +80,7 @@ def calculate_actions(max_bet, bot):
                 actions.pop()
         elif max_bet > bot.bet:
             actions = ['call', 'fold', 'bet']
-            if bot.stack < max_bet :
+            if max_bet >= bot.stack:
                 actions.pop()
     
     
@@ -164,9 +164,10 @@ def play_hand(bots, deck, log):
     last_action_position = -1
     action_seat = -1
     players_allin = 0
+    pot = 1.5
 
     # 1. Hand is finished?
-    while not showdown and players_in_hand > 1 and players_allin < players_in_hand - 1 :
+    while not showdown and players_in_hand > 1 and players_to_talk > 0:
 
         # 2. Calculate next position
         next = next_position_to_talk(street, last_action_position, bots)
@@ -190,26 +191,37 @@ def play_hand(bots, deck, log):
 
         if posible_actions[random_index] == 'bet':
             # Select bet amount with our stack
-            if max_bet >= bots[action_seat].stack:
-                bet_amount = bots[action_seat].stack
-                players_allin += 1
-                print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " bet Allin")
+            if max_bet > 0:
+                minimum_amount = max_bet*2
             else:
-                bet_amount = round(random.uniform(max_bet + 1, bots[action_seat].stack), 1)
-                max_bet = bots[action_seat].bet + bet_amount
+                minimum_amount = 1
+            
+            if bots[action_seat].stack < minimum_amount:
+                bet_amount = bots[action_seat].stack
+            else:
+                bet_amount = round(random.uniform(minimum_amount, bots[action_seat].stack), 1)
 
+            max_bet = round(bots[action_seat].bet + bet_amount, 1)
+
+            
+            
             bots[action_seat].bet += bet_amount
             bots[action_seat].stack = round(bots[action_seat].stack - bet_amount, 1)
+
+            if bots[action_seat].stack == 0:
+                players_allin += 1
+                print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " bet Allin")
+
             players_to_talk = players_in_hand - 1
-            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " bet:" + str(bet_amount) + " | " + str(bots[action_seat].stack))
+            pot += bet_amount
+            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " bet:" + str(max_bet) + " | " + str(bots[action_seat].stack))
 
             
         elif posible_actions[random_index] == 'call':
-            if max_bet > bots[action_seat].stack: # If call is Allin 
-                bots[action_seat].bet = bots[action_seat].stack
+            if max_bet >= bots[action_seat].stack + bots[action_seat].bet: # If call is Allin 
+                bots[action_seat].bet = bots[action_seat].stack + bots[action_seat].bet
+                call_amount = bots[action_seat].stack
                 bots[action_seat].stack = 0
-                players_allin += 1
-                print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " call Allin")
             else:
                 if bots[action_seat].bet == 0:
                     call_amount = max_bet
@@ -220,7 +232,13 @@ def play_hand(bots, deck, log):
                 bots[action_seat].bet = max_bet
 
             players_to_talk -= 1
-            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " call:" + str(call_amount) + " | " + str(bots[action_seat].stack))
+            pot += call_amount
+
+            if bots[action_seat].stack == 0:
+                players_allin += 1
+                print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " call Allin")
+
+            print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " call:" + str(round(call_amount,1)) + " | " + str(bots[action_seat].stack))
         
         elif posible_actions[random_index] == 'fold':
             bots[action_seat].hand = []
@@ -236,6 +254,7 @@ def play_hand(bots, deck, log):
 
         last_action_position = bots[action_seat].position
         
+        
 
         # 4. Street is finished?
         if players_to_talk == 0 and players_in_hand > 1:
@@ -243,11 +262,21 @@ def play_hand(bots, deck, log):
                 street += 1
                 if street == 1:
                     print("Flop")
+                    board = [shuffled_deck.pop() for _ in range(3)]
+                    log.append(f'Board cards: {board}')
                 elif street == 2:
                     print("Turn")
+                    board.append(shuffled_deck.pop())
+                    log.append(f'Board cards: {board}')
                 elif street == 3:
                     print("River")
+                    board.append(shuffled_deck.pop())
+                    log.append(f'Board cards: {board}')
                 
+                print(f'Board cards: {board}')
+                print("Pot: " + str(round(pot)))
+
+
                 players_to_talk = players_in_hand
                 last_action_position = 0
                 max_bet = 0
@@ -257,20 +286,41 @@ def play_hand(bots, deck, log):
             else:
                 showdown = True
         
-        if players_allin >= players_in_hand - 1:
+        if players_allin > 0 and players_allin >= players_in_hand:
             print("Hand All-in")
+            print("Pot: " + str(pot))
+            while street <= 3:
+                if street == 0:
+                    print("All-in Preflop")
+                elif street == 1:
+                    print("All-in Flop")
+                    board = [shuffled_deck.pop() for _ in range(3)]
+                    log.append(f'Board cards: {board}')
+                    print(f'Board cards: {board}')
+                elif street == 2:
+                    print("All-in Turn")
+                    board.append(shuffled_deck.pop())
+                    log.append(f'Board cards: {board}')
+                    print(f'Board cards: {board}')
+                elif street == 3:
+                    print("All-in River")
+                    board.append(shuffled_deck.pop())
+                    log.append(f'Board cards: {board}')
+                    print(f'Board cards: {board}')
+
+                street += 1
 
     print("Hand finished")
 
     # Simulate board cards
-    board = [shuffled_deck.pop() for _ in range(5)]
-    log.append(f'Board cards: {board}')
+    
 
-    # Determine winner (simplified, currently random)
-    winner = random.choice(bots)
-    log.append(f'The winner is {winner.name}.')
+    # Calculate winner
+    #winner = calculate_winner(bots)
+    #log.append(f'The winner is {winner.name}.')
+    #print(f'The winner is {winner.name}.')
 
-    return winner
+    return "winner"
 #####################################
 
 
