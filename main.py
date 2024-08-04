@@ -3,6 +3,8 @@
 import random
 from enum import Enum
 
+from ranking_hands import *
+
 # Define the cards
 suits = ['h', 'd', 'c', 's']
 ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
@@ -23,6 +25,7 @@ class Bot:
         self.position = -1
         self.stack = 100
         self.bet = 0
+        self.in_hand = True
 
     def receive_cards(self, cards):
         self.hand = cards
@@ -244,6 +247,7 @@ def play_hand(bots, deck, log):
             bots[action_seat].hand = []
             players_in_hand -= 1
             players_to_talk -= 1
+            bots[action_seat].in_hand = False
             print(f"{bots[action_seat].name} " + position_in_table(bot.position) + " fold")
 
             
@@ -255,9 +259,32 @@ def play_hand(bots, deck, log):
         last_action_position = bots[action_seat].position
         
         
+        # 4. Street is finished or Allin?
+        if players_allin > 0 and players_allin >= players_in_hand:
+            print("Hand All-in")
+            print("Pot: " + str(pot))
+            while street <= 3:
+                if street == 0:
+                    print("All-in Preflop")
+                    board = [shuffled_deck.pop() for _ in range(3)]
+                    log.append(f'Board cards: {board}')
+                elif street == 1:
+                    print("All-in Flop")
+                    board.append(shuffled_deck.pop())
+                    log.append(f'Board cards: {board}')
+                    print(f'Board cards: {board}')
+                elif street == 2:
+                    print("All-in Turn")
+                    board.append(shuffled_deck.pop())
+                    log.append(f'Board cards: {board}')
+                    print(f'Board cards: {board}')
+                elif street == 3:
+                    print("All-in River")
+                    print(f'Board cards: {board}')
+                    showdown = True
+                street += 1
 
-        # 4. Street is finished?
-        if players_to_talk == 0 and players_in_hand > 1:
+        elif players_to_talk == 0 and players_in_hand > 1:
             if street < 3:
                 street += 1
                 if street == 1:
@@ -286,29 +313,31 @@ def play_hand(bots, deck, log):
             else:
                 showdown = True
         
-        if players_allin > 0 and players_allin >= players_in_hand:
-            print("Hand All-in")
-            print("Pot: " + str(pot))
-            while street <= 3:
-                if street == 0:
-                    print("All-in Preflop")
-                elif street == 1:
-                    print("All-in Flop")
-                    board = [shuffled_deck.pop() for _ in range(3)]
-                    log.append(f'Board cards: {board}')
-                    print(f'Board cards: {board}')
-                elif street == 2:
-                    print("All-in Turn")
-                    board.append(shuffled_deck.pop())
-                    log.append(f'Board cards: {board}')
-                    print(f'Board cards: {board}')
-                elif street == 3:
-                    print("All-in River")
-                    board.append(shuffled_deck.pop())
-                    log.append(f'Board cards: {board}')
-                    print(f'Board cards: {board}')
+        
+    
 
-                street += 1
+
+    if showdown:
+        # 1. Make a list with all of the hands of the players in hand
+        hand_list = []
+        for bot in bots:
+            if bot.in_hand == True:
+                hand_list.append(bot.hand)
+                
+
+        # 2. Parse all the hands
+        #for hand in hand_list:
+        #   hand[0], hand[1] = parse_poker_card(hand[0]), parse_poker_card(hand[1])
+
+        # 3. Calculate best hand
+        best_evaluations_list = []
+        for hand in hand_list:
+            best_evaluations_list.append(find_best_evaluation(hand, board))
+            #print("Winners:", winners)
+            #print("Best Hand:", best_hand)
+            print("Best Evaluation:", best_evaluations_list[-1])
+
+        # 4. Compare between best evaluations
 
     print("Hand finished")
 
